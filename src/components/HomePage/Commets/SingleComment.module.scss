@@ -1,0 +1,100 @@
+@import "../../../sass/variables";
+
+.user-comment {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding-top: $small-padding;
+  padding-bottom: $small-padding;
+  width: 100%;
+
+  img {
+    border: solid 1px rgba(0, 0, 0, 0.181);
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0;
+    margin-left: $small-margin;
+    margin-right: $small-margin;
+  }
+  .comment-text {
+    z-index: 1;
+    position: relative;
+    min-width: 40px;
+    text-align: center;
+    font-size: $small-font;
+    font-weight: 900;
+    padding: $small-padding;
+    background-color: $third-color;
+    margin: 0;
+    margin-right: $extra-large-margin;
+  }
+  .owner-comment-text {
+    align-self: flex-start;
+    position: relative;
+    min-width: 40px;
+    text-align: center;
+    font-size: $small-font;
+    font-weight: 900;
+    padding: $small-padding;
+    background-color: $primary-color;
+    margin: 0;
+    margin-left: calc($extra-large-margin * 2);
+    .edit {
+      z-index: 2;
+      display: flex;
+      flex-direction: row;
+      position: absolute;
+      bottom: -10px;
+      right: 0px;
+      font-size: 1px;
+      span {
+        display: flex;
+        align-items: center;
+        background-color: $primary-color;
+        padding: calc($standard-padding/5);
+        border-radius: 50%;
+        border: 2px solid #231f20;
+        margin-left: $small-margin;
+      }
+    }
+  }
+}
+.edit-input {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $small-margin;
+  input {
+    width: 90%;
+    height: 48px;
+    border: none;
+    font-size: $standard-font;
+    margin-left: $small-margin;
+    padding-left: $small-margin;
+    border: solid 1px rgba(0, 0, 0, 0.338);
+  }
+  input:focus {
+    outline: none;
+    border: solid 1px black;
+  }
+  .icon {
+    margin-right: $small-margin;
+    transform: rotate(-45deg);
+  }
+}
+.cancel {
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: $secondary-color;
+}

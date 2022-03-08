@@ -1,0 +1,67 @@
+@import "../../../sass/variables";
+@import "../../../sass/brakepoints";
+.gallery-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 25%;
+  padding-left: $extra-large-padding;
+  padding-right: $extra-large-padding;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  @include media("<=tablet") {
+    position: fixed;
+    z-index: 20;
+    width: 50%;
+    height: 100vh;
+    background-color: white;
+  }
+  @include media("<=phone") {
+    width: 65%;
+  }
+  .close-icon {
+    display: none;
+    @include media("<=tablet") {
+      display: block;
+      position: relative;
+      align-self: flex-end;
+      top: 1rem;
+    }
+  }
+}
+.gallery-title {
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: $extra-large-margin;
+}
+.search-input {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid $third-color;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  input {
+    width: 90%;
+    border: none;
+    font-size: $big-font;
+    margin-left:$small-padding;
+  }
+  input:focus {
+    outline: none;
+  }
+  .icon {
+    color: $third-color;
+    margin-right:$small-padding;
+    font-size: calc($big-font*2);
+  }
+}
+.post-container {
+  width: 100%;
+  overflow: scroll;
+}
+.post-container::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,68 @@
+@import "../sass/variables";
+@import "../sass/brakepoints";
+.section-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  @include media("<=tablet") {
+    margin-bottom: 10rem;
+  }
+}
+.login-title {
+  font-weight: bold;
+  font-size: $very-big-font;
+}
+.control {
+  display: flex;
+  min-width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: $small-margin;
+  label {
+    color: #2d3748;
+    margin-bottom: $small-margin;
+    font-weight: 500;
+    font-size: $standard-font;
+  }
+  .input {
+    font-size: $standard-font;
+    font-weight: 500;
+    height: 3rem;
+    width: 100%;
+    margin-bottom: $small-margin;
+    border: 1px solid #a0aec0;
+    box-sizing: border-box;
+    padding: $small-padding;
+  }
+  .input:focus {
+    outline: none;
+    border: 1px solid black;
+  }
+  .input-error {
+    font-size: $standard-font;
+    font-weight: 500;
+    height: 3rem;
+    width: 100%;
+    margin-bottom: $small-margin;
+    border: 1px solid $error-color;
+    box-sizing: border-box;
+    padding: $small-padding;
+  }
+}
+.button {
+  cursor: pointer;
+  margin: $small-margin;
+  background-color: $secondary-color;
+  color: $text-secondary-color;
+  border: none;
+  font-weight: 500;
+  font-size: $standard-font;
+  padding: $small-padding;
+}
+.error-message {
+  color: $error-color;
+  position: absolute;
+  bottom: 15%;
+}

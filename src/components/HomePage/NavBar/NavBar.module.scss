@@ -1,0 +1,96 @@
+@import "../../../sass/variables";
+@import "../../../sass/brakepoints";
+.nav-container {
+  position: relative;
+  width: 100%;
+  height: 10%;
+  background-color: $primary-color;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 1 auto;
+  @include media("<=tablet") {
+    position: absolute;
+    z-index: 1;
+    height: 70px;
+  }
+  .menu-icon {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background-color: $fourth-color;
+    border: 1px black solid;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: $standard-margin;
+  }
+  .logo-container {
+    position: relative;
+    z-index: 99;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 150px;
+    z-index: 3;
+    height: 100%;
+    @include media("<=tablet") {
+      width: 100px;
+    }
+  }
+
+  .logo {
+    z-index: 99;
+    width: 55px;
+    padding: $standard-padding;
+    margin-left: 4rem;
+    @include media("<=tablet") {
+      margin-left: 0rem;
+      margin-right: $small-margin;
+      padding: 0;
+    }
+  }
+  .user-container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .account-image {
+    z-index: 2;
+    border-radius: 50%;
+    border: rgba(0, 0, 0, 0.66) 1px solid;
+    width: 50px;
+    height: 50px;
+    margin-right: $small-margin;
+    margin-left: $small-margin;
+    object-fit: cover;
+  }
+  .name {
+    z-index: 2;
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0px 0.5rem 0px 0px;
+  }
+  .arrow {
+    cursor: pointer;
+    z-index: 3;
+    margin-right: $very-big-margin;
+    @include media("<=tablet") {
+      margin: 0;
+    }
+  }
+  .hider {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: $primary-color;
+  }
+  @include media("<=tablet") {
+    margin: 0;
+  }
+}

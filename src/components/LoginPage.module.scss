@@ -1,0 +1,57 @@
+@import "../sass/variables";
+@import "../sass/brakepoints";
+.container {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @include media("<=tablet") {
+  }
+}
+.header-form-container {
+  position: relative;
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  @include media("<=tablet") {
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+.header {
+  position: absolute;
+  z-index: 1;
+  top: 60px;
+  width: 100%;
+  background-color: $primary-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include media("<=tablet") {
+    position: relative;
+    width: 60%;
+    align-self: flex-start;
+    margin-bottom: 6rem;
+  }
+}
+.logo {
+  z-index: 2;
+  padding: 15px;
+  width: 200px;
+  @include media("<=phone") {
+    width: 150px;
+  }
+}
+.welcome-image {
+  width: 800px;
+  position: relative;
+  bottom: 0px;
+  right: 0px;
+}
