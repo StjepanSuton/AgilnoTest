@@ -15,10 +15,11 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
   const [errorFile, setErrorFile] = useState(null);
 
   const types = ["image/png", "image/jpeg"];
-
+  console.log(file);
   const handleChangedFile = (e) => {
     let selected = e.target.files[0];
     if (selected && types.includes(selected.type)) {
+      console.log("fired");
       setFile(selected);
       setErrorFile("");
     } else {
@@ -45,22 +46,27 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
   };
 
   const formSubmitHandler = (e) => {
-    e.preventDefault();
-    addDoc(colRef, {
-      name: name,
-      user: userData.email,
-      description: description,
-      image: url,
-      postedAt: serverTimestamp(),
-    }).then(() => {
-      setName("");
-      setDescription("");
-      setFile(null);
-      setUrl(null);
-      setErrorFile(null);
-      setNewPost(true);
-      modalHandler(false);
-    });
+    if (file !== null) {
+      e.preventDefault();
+      addDoc(colRef, {
+        name: name,
+        user: userData.email,
+        description: description,
+        image: url,
+        postedAt: serverTimestamp(),
+      }).then(() => {
+        setName("");
+        setDescription("");
+        setFile(null);
+        setUrl(null);
+        setErrorFile(null);
+        setNewPost(true);
+        modalHandler(false);
+      });
+    } else {
+      e.preventDefault();
+      return;
+    }
   };
 
   return (
