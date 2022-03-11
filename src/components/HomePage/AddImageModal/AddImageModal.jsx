@@ -109,7 +109,7 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
                   required
                 ></input>
                 <label>Image:</label>
-                <input type="file" onChange={handleChangedFile} />
+                <input required type="file" onChange={handleChangedFile} />
                 <div className={classes.output}>
                   <AnimatePresence exitBeforeEnter>
                     {file && (
