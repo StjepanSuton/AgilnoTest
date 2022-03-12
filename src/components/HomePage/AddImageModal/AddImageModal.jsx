@@ -15,7 +15,6 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
   const [errorFile, setErrorFile] = useState(null);
 
   const types = ["image/png", "image/jpeg"];
-  console.log(file);
   const handleChangedFile = (e) => {
     let selected = e.target.files[0];
     if (selected && types.includes(selected.type)) {
@@ -46,27 +45,22 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
   };
 
   const formSubmitHandler = (e) => {
-    if (file !== null) {
-      e.preventDefault();
-      addDoc(colRef, {
-        name: name,
-        user: userData.email,
-        description: description,
-        image: url,
-        postedAt: serverTimestamp(),
-      }).then(() => {
-        setName("");
-        setDescription("");
-        setFile(null);
-        setUrl(null);
-        setErrorFile(null);
-        setNewPost(true);
-        modalHandler(false);
-      });
-    } else {
-      e.preventDefault();
-      return;
-    }
+    e.preventDefault();
+    addDoc(colRef, {
+      name: name,
+      user: userData.email,
+      description: description,
+      image: url,
+      postedAt: serverTimestamp(),
+    }).then(() => {
+      setName("");
+      setDescription("");
+      setFile(null);
+      setUrl(null);
+      setErrorFile(null);
+      setNewPost(true);
+      modalHandler(false);
+    });
   };
 
   return (
@@ -115,7 +109,7 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
                   required
                 ></input>
                 <label>Image:</label>
-                <input required type="file" onChange={handleChangedFile} />
+                <input type="file" onChange={handleChangedFile} />
                 <div className={classes.output}>
                   <AnimatePresence exitBeforeEnter>
                     {file && (
