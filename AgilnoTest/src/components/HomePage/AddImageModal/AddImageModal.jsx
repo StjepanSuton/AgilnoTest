@@ -9,51 +9,26 @@ import CloseIcon from "@mui/icons-material/Close";
 function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
   ////Upload data
   const [name, setName] = useState("");
-  const [nameError, setNameError] = useState(false);
   const [description, setDescription] = useState("");
-  const [descriptionError, setDescriptionError] = useState(false);
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorFile, setErrorFile] = useState(null);
 
   const types = ["image/png", "image/jpeg"];
-
-  const nameHandler = () => {
-    if (name.trim().length === 0) {
-      setNameError(true);
-    } else {
-      setNameError(false);
-    }
-  };
-
-  const descriptionHandler = () => {
-    if (description.trim().length === 0) {
-      setDescriptionError(true);
-    } else {
-      setDescriptionError(false);
-    }
-  };
-
   const handleChangedFile = (e) => {
     let selected = e.target.files[0];
     if (selected && types.includes(selected.type)) {
+      console.log("fired");
       setFile(selected);
-      setErrorMessage("");
+      setErrorFile("");
     } else {
       setFile(null);
-      setErrorMessage("Please select an image file (png or jpg)");
+      setErrorFile("Please select an image file (png or jpg)");
     }
   };
 
   const handleClick = (e) => {
     if (e.target.id === "backdrop") {
-      setName("");
-      setDescription("");
-      setNameError(false);
-      setDescriptionError(false);
-      setFile(null);
-      setUrl(null);
-      setErrorMessage(null);
       modalHandler(false);
     } else {
       return;
@@ -63,20 +38,14 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
   const handleClose = () => {
     setName("");
     setDescription("");
-    setNameError(false);
-    setDescriptionError(false);
     setFile(null);
     setUrl(null);
-    setErrorMessage(null);
+    setErrorFile(null);
     modalHandler(false);
   };
 
   const formSubmitHandler = (e) => {
-    if (
-      file !== null &&
-      description.trim().length > 0 &&
-      name.trim().length > 0
-    ) {
+    if (file !== null) {
       e.preventDefault();
       addDoc(colRef, {
         name: name,
@@ -87,11 +56,9 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
       }).then(() => {
         setName("");
         setDescription("");
-        setNameError(false);
-        setDescriptionError(false);
         setFile(null);
         setUrl(null);
-        setErrorMessage(null);
+        setErrorFile(null);
         setNewPost(true);
         modalHandler(false);
       });
@@ -131,34 +98,19 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
               >
                 <label>Name:</label>
                 <input
-                  placeholder={
-                    nameError === true
-                      ? "Must contain a character"
-                      : "Image name"
-                  }
+                  onFocus={() => setErrorFile("")}
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  onBlur={nameHandler}
-                  className={
-                    classes[nameError === true ? "input-error" : "input"]
-                  }
+                  className={classes.input}
                   required
                 />
                 <label>Description:</label>
                 <input
-                  placeholder={
-                    descriptionError === true
-                      ? "Must contain a character"
-                      : "Image description"
-                  }
                   type="text"
                   value={description}
-                  onBlur={descriptionHandler}
                   onChange={(e) => setDescription(e.target.value)}
-                  className={
-                    classes[nameError === true ? "input-error" : "input"]
-                  }
+                  className={classes.input}
                   required
                 ></input>
                 <label>Image:</label>
@@ -172,7 +124,7 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
                         setFile={setFile}
                       />
                     )}
-                    {errorMessage && (
+                    {errorFile && (
                       <motion.div
                         animate={{ opacity: 1, x: 0 }}
                         initial={{ opacity: 0, x: -10 }}
@@ -180,7 +132,7 @@ function AddImageModal({ openModal, setNewPost, userData, modalHandler }) {
                         transition={{ duration: 1 }}
                         className={classes.error}
                       >
-                        {errorMessage}
+                        {errorFile}
                       </motion.div>
                     )}
                   </AnimatePresence>

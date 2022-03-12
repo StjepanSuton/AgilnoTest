@@ -23,7 +23,7 @@ function Post({ post, setSelectedPost, galleryHandler }) {
     >
       <div className={classes.post}>
         <div className={classes["image-container"]}>
-          <img src={post.image} alt="post.name" />
+          <img src={post.image} alt={post.name} />
         </div>
         <h4>{post.name}</h4>
       </div>

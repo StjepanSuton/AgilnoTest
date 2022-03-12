@@ -94,7 +94,7 @@ function Comments({ selectedPost, userData, setShowComments }) {
         <h6>{selectedPost.name}</h6>
       </div>
       <motion.div className={classes.comments}>
-        <img src={selectedPost.image} />
+        <img src={selectedPost.image} alt={selectedPost.image} />
         <AnimatePresence>
           {allComments &&
             allComments.map((comment, i) => (

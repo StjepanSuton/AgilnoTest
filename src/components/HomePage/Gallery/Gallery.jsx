@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import classes from "./Gallery.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import { AnimatePresence, motion } from "framer-motion";
 import { getDocs, orderBy, query } from "firebase/firestore";
 import { colRef } from "../../../firebase/config";
 import Post from "./Post";
-import { AnimatePresence, motion } from "framer-motion";
+
 function Gallery({
   newPost,
   setNewPost,
@@ -31,7 +32,7 @@ function Gallery({
     } else {
       return;
     }
-  }, [newPost]);
+  }, [newPost, setNewPost]);
 
   return (
     <AnimatePresence>
@@ -60,30 +61,28 @@ function Gallery({
             <SearchIcon className={classes.icon} />
           </div>
           <motion.div className={classes["post-container"]}>
-            <AnimatePresence>
-              {posts &&
-                posts
-                  .filter((post) => {
-                    if (filteredPosts === "") {
-                      return post;
-                    } else if (
-                      post.name
-                        .toLowerCase()
-                        .includes(filteredPosts.toLowerCase())
-                    ) {
-                      return post;
-                    }
-                  })
-                  .map((post) => (
-                    <motion.div layout key={post.id}>
-                      <Post
-                        galleryHandler={galleryHandler}
-                        setSelectedPost={setSelectedPost}
-                        post={post}
-                      />
-                    </motion.div>
-                  ))}
-            </AnimatePresence>
+            {posts &&
+              posts
+                .filter((post) => {
+                  if (filteredPosts === "") {
+                    return post;
+                  } else if (
+                    post.name
+                      .toLowerCase()
+                      .includes(filteredPosts.toLowerCase())
+                  ) {
+                    return post;
+                  }
+                })
+                .map((post) => (
+                  <motion.div layout key={post.id}>
+                    <Post
+                      galleryHandler={galleryHandler}
+                      setSelectedPost={setSelectedPost}
+                      post={post}
+                    />
+                  </motion.div>
+                ))}
           </motion.div>
         </motion.div>
       )}

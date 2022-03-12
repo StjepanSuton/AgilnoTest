@@ -56,7 +56,7 @@ function NavBar({ setOpenModal, userData, setOpenGallery }) {
           {userData && (
             <img
               src={userData.image}
-              alt="user image"
+              alt="user"
               className={classes["account-image"]}
             />
           )}

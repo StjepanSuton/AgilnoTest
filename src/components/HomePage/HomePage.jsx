@@ -32,7 +32,7 @@ function HomePage() {
     getDoc(docRef).then((user) => {
       setUserData(user.data());
     });
-  }, []);
+  }, [authCtx.user]);
 
   return (
     <div className={classes["home-container"]}>
