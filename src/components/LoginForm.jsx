@@ -38,7 +38,6 @@ function LoginForm() {
   //
 
   useEffect(() => {
-    clearTimeout();
     if (errorMessage) {
       setTimeout(() => {
         setErrorMessage(null);

@@ -76,7 +76,11 @@ function Gallery({
                   })
                   .map((post) => (
                     <motion.div layout key={post.id}>
-                      <Post galleryHandler={galleryHandler} setSelectedPost={setSelectedPost} post={post} />
+                      <Post
+                        galleryHandler={galleryHandler}
+                        setSelectedPost={setSelectedPost}
+                        post={post}
+                      />
                     </motion.div>
                   ))}
             </AnimatePresence>

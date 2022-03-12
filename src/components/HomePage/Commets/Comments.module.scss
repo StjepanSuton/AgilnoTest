@@ -76,6 +76,36 @@
     transform: rotate(-45deg);
   }
 }
+.comment-input-error {
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid $third-color;
+  border-color: $error-color;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  input {
+    position: relative;
+    width: 80%;
+    height: 48px;
+    border: none;
+    font-size: $standard-font;
+    margin-left: $small-margin;
+  }
+  input:focus {
+    outline: none;
+  }
+  .icon {
+    position: absolute;
+    height: 100%;
+    right: 1rem;
+    transform: rotate(-45deg);
+  }
+}
 .owner-layout {
   align-self: flex-end;
 }

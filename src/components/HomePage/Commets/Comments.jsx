@@ -18,38 +18,36 @@ import SIngleComment from "./SIngleComment";
 import AuthContext from "../../../store/auth-context";
 
 function Comments({ selectedPost, userData, setShowComments }) {
-  //For loading and checking for new comments
+  //For checking for new comments
   const [allComments, setAllComments] = useState(null);
   const [loadedComments, setLoadedComments] = useState(false);
-  const [loading, setLoading] = useState(false);
-  //Adding deleteing,editing comments
+  //Adding deleteing,editing,error handlling comments
   const [addComment, setAddComment] = useState("");
   const [manageCommentId, setManageCommentId] = useState(null);
+  const [errorComment, setErrorComment] = useState(null);
   //user Data
   const authCtx = useContext(AuthContext);
   //Loading initial comments, checking for new comments
   useEffect(() => {
     if (!loadedComments) {
-      setLoading(true);
       const docRef = collection(db, "posts", `${selectedPost.id}/comments`);
       const q = query(docRef, orderBy("postedAt", "asc"));
-      const unsub = getDocs(q).then((snapshot) => {
+      getDocs(q).then((snapshot) => {
         let comments = [];
         snapshot.docs.forEach((doc) => {
           comments.push({ ...doc.data(), id: doc.id });
         });
         setAllComments(comments);
         setLoadedComments(true);
-        setLoading(false);
       });
     } else {
       return;
     }
-  }, [loadedComments]);
+  }, [loadedComments, selectedPost]);
 
   //Adding new comment
   const addCommentHandler = () => {
-    if (addComment.trim().length > 0)
+    if (addComment.trim().length > 0) {
       addDoc(collection(db, `posts/${selectedPost.id}/comments`), {
         comment: addComment,
         user: userData.email,
@@ -59,6 +57,13 @@ function Comments({ selectedPost, userData, setShowComments }) {
         setAddComment("");
         setLoadedComments(false);
       });
+    } else {
+      setErrorComment("Must contain a character");
+      setAddComment("");
+      setTimeout(() => {
+        setErrorComment(null);
+      }, 3000);
+    }
   };
 
   const deleteCommentHandler = () => {
@@ -112,11 +117,19 @@ function Comments({ selectedPost, userData, setShowComments }) {
             ))}
         </AnimatePresence>
       </motion.div>
-      <div className={classes["comment-input"]}>
+      <div
+        className={
+          classes[
+            errorComment === null ? "comment-input" : "comment-input-error"
+          ]
+        }
+      >
         <motion.input
           value={addComment}
           onChange={(e) => setAddComment(e.target.value)}
-          placeholder="LEAVE A COMMENT"
+          placeholder={
+            errorComment === null ? `LEAVE A COMMENT` : `${errorComment}`
+          }
         />
         <SendIcon onClick={addCommentHandler} className={classes.icon} />
       </div>

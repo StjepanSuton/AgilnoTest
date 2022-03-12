@@ -17,21 +17,30 @@ function SIngleComment({
   const [isEditing, setIsEditing] = useState(false);
   const [startEditig, setStartEditign] = useState(false);
   const [edditComment, setEdditComment] = useState("");
+  const [errorComment, setErrorComment] = useState(null);
 
   const authCtx = useContext(AuthContext);
 
   const editCommentHandler = () => {
-    const docRef = doc(
-      db,
-      `posts/${selectedPost.id}/comments/${manageCommentId}`
-    );
-    updateDoc(docRef, {
-      comment: edditComment,
-    }).then(() => {
-      setStartEditign(false);
+    if (edditComment.trim().length > 0) {
+      const docRef = doc(
+        db,
+        `posts/${selectedPost.id}/comments/${manageCommentId}`
+      );
+      updateDoc(docRef, {
+        comment: edditComment,
+      }).then(() => {
+        setStartEditign(false);
+        setEdditComment("");
+        setLoadedComments(false);
+      });
+    } else {
+      setErrorComment("Must contain a character");
       setEdditComment("");
-      setLoadedComments(false);
-    });
+      setTimeout(() => {
+        setErrorComment(null);
+      }, 3000);
+    }
   };
   //used for more complex animations
   const container = {
@@ -115,11 +124,19 @@ function SIngleComment({
             animate={{ scale: 1 }}
             className={classes["user-comment"]}
           >
-            <motion.div className={classes["edit-input"]}>
+            <motion.div
+              className={
+                classes[
+                  errorComment === null ? "edit-input" : "edit-input-error"
+                ]
+              }
+            >
               <motion.input
                 value={edditComment}
                 onChange={(e) => setEdditComment(e.target.value)}
-                placeholder="EDIT A COMMENT"
+                placeholder={
+                  errorComment === null ? "EDIT YOUR COMMENT" : errorComment
+                }
               />
               <CreateIcon
                 onClick={editCommentHandler}
